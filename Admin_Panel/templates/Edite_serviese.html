@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col-md-6 mx-auto">
+
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fa fa-soap"></i> update Laundry Service
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post" action="{% url 'update_servies' s_id=data.id %}">
+                    {% csrf_token %}
+
+                    <!-- Service Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Service Name</label>
+                        <select class="form-select" name="service_name" required>
+                            <option value="">{{data.service_name}}</option>
+                            <option value="Wash">Wash</option>
+                            <option value="Dry Clean">Dry Clean</option>
+                            <option value="Iron">Iron</option>
+                            <option value="Express Service">Express Service</option>
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label class="form-label">Service Price (₹)</label>
+                        <input type="number" name="price" class="form-control" value="{{data.service_price}}"
+                               placeholder="Enter price" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Service Description</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Enter service details">{{data.service_description}}</textarea>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="mb-3">
+                        <label class="form-label">Service Status</label>
+                        <select class="form-select" name="status">
+                            <option value="">{{data.service_status}}</option>
+
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">
+                            update Service
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
