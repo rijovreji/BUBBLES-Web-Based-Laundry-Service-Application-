@@ -143,8 +143,7 @@
             <i class="fa fa-users"></i> Users
         </a>
         <div class="collapse submenu" id="usersMenu">
-            <a href="#">View Users</a>
-            <a href="#">Active / Deactivate Users</a>
+            <a href="{% url 'view_user' %}">View Users</a>
         </div>
 
         <!-- Services -->
@@ -161,8 +160,8 @@
             <i class="fa fa-cart-shopping"></i> Orders
         </a>
         <div class="collapse submenu" id="ordersMenu">
-            <a href="#">View Orders</a>
-            <a href="#">Update Order Status</a>
+            <a href="{% url 'view_order' %}">View Orders</a>
+            <a href="{% url 'update_order_statues' %}">Update Order Status</a>
         </div>
 
         <!-- Payments -->
@@ -170,8 +169,8 @@
             <i class="fa fa-credit-card"></i> Payments
         </a>
         <div class="collapse submenu" id="paymentsMenu">
-            <a href="#">Paid Orders</a>
-            <a href="#">Unpaid Orders</a>
+            <a href="{% url 'view_Paid_orders' %}">Paid Orders</a>
+            <a href="{% url 'view_unpaid_orders' %}">Unpaid Orders</a>
         </div>
 
         <!-- Notifications -->
@@ -201,7 +200,7 @@
         </div>
 
         <!-- Logout -->
-        <a href="#" class="text-danger">
+        <a href="{% url 'admin_logout' %}" class="text-danger">
             <i class="fa fa-sign-out-alt"></i> Logout
         </a>
     </div>
@@ -209,9 +208,11 @@
     <!-- CONTENT -->
     <div class="col-md-10 d-flex flex-column p-0">
         <div class="content">
+            {% if request.session.username %}
 
-            <h3>Welcome Admin</h3>
+            <h3>Welcome {{request.session.username}}</h3>
             <p class="text-muted">Laundry Management System Dashboard</p>
+            {% endif %}
 
 
             <div class="row mt-4">

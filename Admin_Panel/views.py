@@ -62,7 +62,36 @@ def delete_Service(request, s_id):
     service = Serviece_DB.objects.filter(id=s_id)
     service.delete()
     return redirect(View_Service_admin)
+def view_user(request):
+    return render(request, 'view_user.html')
+def view_order(request):
+    return render(request, 'view_order.html')
+def update_order_statues(request):
+    return render(request, 'update_order_statues.html')
+def view_Paid_orders(request):
+    return render(request, 'view_Paid_orders.html')
+def view_unpaid_orders(request):
+    return render(request, 'view_unpaid_orders.html')
+def login_admin(request):
+    return render(request,'login_admin.html')
+def admin_login(request):
+    if request.method=="POST":
+        uname=request.POST.get('username')
+        pswd=request.POST.get('password')
+        if User.objects.filter(username__contains=uname).exists():
+            data=authenticate(username=uname,password=pswd)
+            if data is not None:
+                login(request,data)
+                request.session['username']=uname
+                request.session['password']=pswd
 
+                return redirect(Base_admin)
+            else:
+                return redirect(login_admin)
 
-
-
+        else:
+            return redirect(login_admin)
+def admin_logout(request):
+    del request.session['username']
+    del request.session['password']
+    return redirect(login_admin)

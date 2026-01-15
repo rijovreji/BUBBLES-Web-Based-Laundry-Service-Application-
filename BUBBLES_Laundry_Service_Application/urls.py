@@ -21,10 +21,12 @@ from . import settings
 from django.contrib import admin
 from django.urls import path,include
 import Admin_Panel.urls
+import User_Web.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Admin_Panel/',include(Admin_Panel.urls))
+    path('Admin_Panel/',include(Admin_Panel.urls)),
+    path('BUBBLES – Web-Based Laundry Service Application/',include(User_Web.urls))
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
