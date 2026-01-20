@@ -14,7 +14,8 @@
 
             <div class="card-body">
 
-                <form method="post" action="{% url 'update_servies' s_id=data.id %}">
+                <!-- 🔹 ONLY enctype ADDED -->
+                <form method="post" action="{% url 'update_servies' s_id=data.id %}" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     <!-- Service Name -->
@@ -35,6 +36,17 @@
                         <input type="number" name="price" class="form-control" value="{{data.service_price}}"
                                placeholder="Enter price" required>
                     </div>
+                    <!-- Short Description (ADDED ONLY) -->
+                    <div class="mb-3">
+                        <label class="form-label">Short Description</label>
+                        <input type="text"
+                               name="short_description"
+                               class="form-control"
+                               maxlength="100"
+                               value="{{data.service_short_desc}}"
+                               placeholder="Enter short description (max 100 characters)">
+                    </div>
+
 
                     <!-- Description -->
                     <div class="mb-3">
@@ -47,10 +59,24 @@
                         <label class="form-label">Service Status</label>
                         <select class="form-select" name="status">
                             <option value="">{{data.service_status}}</option>
-
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>
+                    </div>
+
+                    <!-- 🔹 ADDED IMAGE FIELD -->
+                    <div class="mb-3">
+                        <label class="form-label">Service Image</label>
+                        <input type="file" name="service_image" class="form-control" accept="image/*">
+                    </div>
+
+                    <!-- 🔹 ADDED CURRENT IMAGE PREVIEW -->
+                    <div class="mb-3 text-center">
+                        {% if data.service_image %}
+                        <img src="{{ data.service_image.url }}" width="120" class="rounded shadow">
+                        {% else %}
+                        <p class="text-muted">No image uploaded</p>
+                        {% endif %}
                     </div>
 
                     <!-- Buttons -->
@@ -58,7 +84,6 @@
                         <button type="submit" class="btn btn-success">
                             update Service
                         </button>
-
                     </div>
 
                 </form>

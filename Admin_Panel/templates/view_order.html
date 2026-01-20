@@ -14,39 +14,50 @@
                 <th>Total Price (₹)</th>
                 <th>Order Date</th>
                 <th>Status</th>
-<!--                <th>Action</th>-->
             </tr>
         </thead>
         <tbody>
-        {% for order in orders %}
+        {% for i in data %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>ORD{{ order.id }}</td>
-                <td>{{ order.user.full_name }}</td>
-                <td>{{ order.service_name }}</td>
-                <td>{{ order.total_price }}</td>
-                <td>{{ order.order_date|date:"d M Y" }}</td>
+                <td>{{ i.id }}</td>
+
+                <!-- Customer Name -->
                 <td>
-                    {% if order.status == "Completed" %}
-                        <span class="badge bg-success">Completed</span>
-                    {% elif order.status == "Pending" %}
-                        <span class="badge bg-warning text-dark">Pending</span>
+
+                        {{ i.customer_name}}
+
+                </td>
+
+                <!-- Service -->
+                <td>
+                    {% if i.service %}
+                        {{ i.service.service_name }}
                     {% else %}
-                        <span class="badge bg-info">Processing</span>
+                        ---
                     {% endif %}
                 </td>
-<!--                <td>-->
-<!--                    <a href="{% url 'view_order_detail' order.id %}" class="btn btn-sm btn-info">-->
-<!--                        View-->
-<!--                    </a>-->
-<!--                    <a href="{% url 'edit_order' order.id %}" class="btn btn-sm btn-primary">-->
-<!--                        Edit-->
-<!--                    </a>-->
-<!--                </td>-->
+
+                <!-- Total Price (from Service table) -->
+                <td>
+                    {% if i.service %}
+                        ₹ {{ i.service.service_price }}
+                    {% else %}
+                        ₹ 0
+                    {% endif %}
+                </td>
+
+                <!-- Order Date (using pickup date) -->
+                <td>{{ i.pickup_date }}</td>
+
+                <!-- Status (static, model unchanged) -->
+                <td>
+                    <span class="badge bg-warning text-dark">Pending</span>
+                </td>
             </tr>
         {% empty %}
             <tr>
-                <td colspan="8" class="text-center">No orders found</td>
+                <td colspan="7" class="text-center">No orders found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h4 class="mb-3">Contact Messages</h4>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.contact_name }}</td>
+                <td>{{ i.contact_email }}</td>
+                <td>{{ i.contact_message }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

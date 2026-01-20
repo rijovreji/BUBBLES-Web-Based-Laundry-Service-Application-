@@ -18,5 +18,6 @@ urlpatterns = [
     path('', views.login_admin, name='login_admin'),
     path('admin_login/', views.admin_login, name='admin_login'),
     path('admin_logout/', views.admin_logout, name='admin_logout'),
-
+    path('view_response/', views.view_response, name='view_response'),
+    
 ]
